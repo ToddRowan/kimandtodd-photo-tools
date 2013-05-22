@@ -1,0 +1,14 @@
+/* 
+    Document   : kandt.css
+    Created on : May 14, 2013, 1:05:58 PM
+    Author     : Todd.Rowan
+    Description:
+        Sets up our sliders galleries.
+*/
+
+.cycle_imgs_box {
+    float: left;
+    height: 150px;
+    width: 150px;
+    padding-right: 15px;
+}

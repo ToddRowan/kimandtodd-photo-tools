@@ -11,4 +11,64 @@
     height: 150px;
     width: 150px;
     padding-right: 15px;
+    position: relative;
+}
+
+.cycle_img {
+    position: absolute;
+    top: 0px;
+}
+
+.cycle_overlay {
+    position: absolute;
+    top: 40px;
+    width: 75px;
+    z-index: 500;
+    left: 38px;
+    opacity: .85;
+    display: none;
+}
+
+.cycle_imgs {
+    position: relative;
+}
+
+.cycle_overlay_show {
+    display: block;
+}
+
+@media screen and (min-width : 460px) and (max-width : 629px) {
+     .cycle_imgs_box {
+        padding-right: 5px;
+        padding-top: 7px;
+     } 
+     
+     .cycle_img,.cycle_imgs_box {
+         height: 100px;
+         width: 100px;
+     }
+     
+     .cycle_overlay {
+         top: 66px;
+         width: 45px;
+         left: 55px;
+     }
+}
+
+@media screen and (max-width: 459px) {
+     .cycle_imgs_box {
+         padding-right: 5px;
+         padding-top: 5px;
+     } 
+     
+     .cycle_img,.cycle_imgs_box {
+         height: 75px;
+         width: 75px;
+     }
+     
+     .cycle_overlay {
+         top: 53px;
+         width: 30px;
+         left: 45px;
+     }
 }

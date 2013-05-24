@@ -140,16 +140,19 @@ function output_cycle($attr, $attachments, $instance)
     ), $attr));    
    
     $i = 0;
-    $output = "<div class=\"cycle_imgs_box\">\n <div class=\"cycle_imgs\">";
+    $link = get_permalink() . "#startshow"; // Let them start the slide show automatically
+    $output = "<div class=\"cycle_imgs_box\">\n";
+    $output .= "<a href=\"$link\">";
+    $output .= "<div class=\"cycle_imgs\">";
     foreach ( $attachments as $id => $attachment ) {
-    	$link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false); // I don't think I'll ever want the latter here, as I'll always link straight to the image itself in the slideshow. 
-    	// Ok, let's build the output that we need for our slideshow. Change all of this here. 
-	$output .= "<{$itemtag} class='cycle_img' " . ($i++!=0?" style=\"display:none\" ":"") . ">";
-	$output .= $link;
+        $imgSrc = wp_get_attachment_image_src($id, $size);
+	$output .= "<{$itemtag} class='cycle_img_div' " . ($i++!=0?" style=\"display:none\" ":"") . ">";
+        $output .= "<img src=\"$imgSrc[0]\" class=\"cycle_img\"></img>";
 	$output .= "</{$itemtag}>"; 
     }
-
-    $output .= "\n </div>\n</div>\n";
+    $output .= "</div>\n";
+    $output .= "<img src=\"" . plugin_dir_url(__FILE__) . "images/slides.gif" ."\" class=\"cycle_overlay\"></img>";
+    $output .= "</a>\n </div>\n";
     
     return $output;
 }
@@ -181,10 +184,8 @@ function output_slideshow($attr, &$attachments, $instance)
 
     $i = 0;
     foreach ( $attachments as $id => $attachment ) {
-    	//$link = isset($attr['link']) && 'file' == $attr['link'] ? wp_get_attachment_link($id, $size, false, false) : wp_get_attachment_link($id, $size, true, false); // I don't think I'll ever want the latter here, as I'll always link straight to the image itself in the slideshow. 
         $link = wp_get_attachment_image_src($id);
-        $linkFull = wp_get_attachment_image_src($id, 'full');
-    	// Ok, let's build the output that we need for our slideshow. Change all of this here. 
+        $linkFull = wp_get_attachment_image_src($id, $size);
         $caption = trim($attachment->post_content);
         if ($caption) {
             $caption = htmlspecialchars($caption, ENT_NOQUOTES | ENT_HTML401, 'UTF-8', false);

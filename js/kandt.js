@@ -1,4 +1,3 @@
-var $ = jQuery;
 (function($) {
     $(document).ready(function() {
         $('.cycle_imgs_box').each(function(){$(this).prependTo($(this).parent());});
@@ -10,8 +9,20 @@ var $ = jQuery;
             function()
             {
                 var tos = $('#'+$(this).first().attr('id') +  ' a').TosRUs({"caption":["data-caption"],'anchors':{'zoomIcon':false}});
+                if (location.hash=="#startshow") tos.trigger("open");
                 setLoggers(tos);
             });
+            
+        
+        if (!isTouchDevice())
+            {
+                $('.cycle_imgs_box').hover(function(){$(this).find(".cycle_overlay").fadeIn();}, 
+                         function(){$(this).find(".cycle_overlay").fadeOut();});            
+            }
+            else
+            {
+                $(".cycle_overlay").css('opacity', '1').show();
+            }
       }
     )
  }
@@ -58,4 +69,10 @@ function setLoggers(tos)
   tos.bind("closing.tos", closeLog);
   tos.bind("sliding.tos", slideLog);
   tos.bind("loading.tos", loadLog);
+}
+
+function isTouchDevice() {
+   var el = document.createElement('div');
+   el.setAttribute('ongesturestart', 'return;');
+   return typeof el.ongesturestart === "function";
 }

@@ -136,7 +136,8 @@ function output_cycle($attr, $attachments, $instance)
     	'size'       => 'thumbnail',
         'ids'        => '',
         'include'    => '',
-        'orderby'    => ''
+        'orderby'    => '',
+        'limit'      => 5 // Let's limit the cycle to five imgs to reduce downloads. 
     ), $attr));    
    
     $i = 0;
@@ -149,6 +150,7 @@ function output_cycle($attr, $attachments, $instance)
 	$output .= "<{$itemtag} class='cycle_img_div' " . ($i++!=0?" style=\"display:none\" ":"") . ">";
         $output .= "<img src=\"$imgSrc[0]\" class=\"cycle_img\"></img>";
 	$output .= "</{$itemtag}>"; 
+        if ( ($limit > 0) && ($i == $limit)) break;
     }
     $output .= "</div>\n";
     $output .= "<img src=\"" . plugin_dir_url(__FILE__) . "images/slides.gif" ."\" class=\"cycle_overlay\"></img>";

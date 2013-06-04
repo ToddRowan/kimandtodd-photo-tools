@@ -190,7 +190,7 @@ function output_slideshow($attr, &$attachments, $instance)
         $linkFull = wp_get_attachment_image_src($id, $size);
         $caption = trim($attachment->post_content);
         if ($caption) {
-            $caption = htmlspecialchars($caption, ENT_NOQUOTES | ENT_HTML401, 'UTF-8', false);
+            $caption = htmlspecialchars($caption, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 	}
 	$output .= "<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption'>";
 	$output .= "

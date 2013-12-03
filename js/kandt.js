@@ -11,7 +11,7 @@
             {
                 var tos = $('#'+$(this).first().attr('id') +  ' a').TosRUs({"caption":["data-caption"],'anchors':{'zoomIcon':false}});
                 if (location.hash=="#startshow") tos.trigger("open");
-                setLoggers(tos);
+                //setLoggers(tos);
             });
             
         

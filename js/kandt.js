@@ -2,7 +2,8 @@
     $(document).ready(function() {
         $('.cycle_imgs_box').each(function(){$(this).prependTo($(this).parent());});
         window.setTimeout(function() {$('.cycle_imgs').cycle({
-            fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+            fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+            slides: '> div.cycle_img_div'
         });}, 2000);
     
         $('.gallery').each(

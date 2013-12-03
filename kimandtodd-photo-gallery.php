@@ -53,6 +53,27 @@ function get_gallery_shortcode_for_post($post_id)
     return get_post_meta($post_id, GALLERY_META_KEY, true);
 }
 
+function get_post_gallery_thumb($post_id)
+{
+    $shortcode = get_gallery_shortcode_for_post($post_id);
+    $result = null;
+    
+    if ($shortcode!="")
+    {
+        $rgx = '/\d+/';
+        $res = preg_match($rgx,$shortcode,&$matches);
+        if($res)
+        {
+            $img_arr = wp_get_attachment_image_src($matches[0], 'medium');
+            if ($img_arr!==false)
+            {
+                $result = $img_arr[0];
+            }
+        }
+    }    
+    return $result;
+}
+
 // Build our custom shortcode to force cycling in an excerpt.
 function get_the_cycle_shortcode($id = -1)
 {

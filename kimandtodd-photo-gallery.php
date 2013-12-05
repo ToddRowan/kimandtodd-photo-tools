@@ -210,10 +210,20 @@ function output_slideshow($attr, &$attachments, $instance)
         $link = wp_get_attachment_image_src($id);
         $linkFull = wp_get_attachment_image_src($id, $size);
         $caption = trim($attachment->post_content);
+        $coords = get_coords_for_attachment($id);
+        if ($coords)
+        {
+            $latLng = "data-lat=\"". $coords['latitude'] ."\" data-lng=\"". $coords['longitude'] ."\"";
+        }
+        else
+        {
+            $latLng="";
+        }
+        
         if ($caption) {
             $caption = htmlspecialchars($caption, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 	}
-	$output .= "<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption'>";
+	$output .= "\n<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption' $latLng>";
 	$output .= "
             <{$icontag} class='gallery-content' src='" .
                 ($link ? $link[0] : "/wordpress/noimg")
@@ -226,7 +236,7 @@ function output_slideshow($attr, &$attachments, $instance)
 	<br style='clear: both;' />
         </div>\n";
     
-    return $output;    
+    return "<div id=\"maptest\" style=\"display:none\">click</div>".$output;    
 }
 
 // Register our CSS and JS for inclusion in the finished page.

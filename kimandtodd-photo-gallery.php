@@ -206,14 +206,17 @@ function output_slideshow($attr, &$attachments, $instance)
     $output = "\n\t\t" . $gallery_div; 
 
     $i = 0;
+    $coords_exist = false;
     foreach ( $attachments as $id => $attachment ) {
         $link = wp_get_attachment_image_src($id);
         $linkFull = wp_get_attachment_image_src($id, $size);
         $caption = trim($attachment->post_content);
+        $title = trim($attachment->post_title);
         $coords = get_coords_for_attachment($id);
         if ($coords)
         {
             $latLng = "data-lat=\"". $coords['latitude'] ."\" data-lng=\"". $coords['longitude'] ."\"";
+            $coords_exist=true;
         }
         else
         {
@@ -223,7 +226,11 @@ function output_slideshow($attr, &$attachments, $instance)
         if ($caption) {
             $caption = htmlspecialchars($caption, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 	}
-	$output .= "\n<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption' $latLng>";
+        
+        if ($title) {
+            $title = htmlspecialchars($title, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+	}
+	$output .= "\n<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption' data-title='$title' $latLng>";
 	$output .= "
             <{$icontag} class='gallery-content' src='" .
                 ($link ? $link[0] : "/wordpress/noimg")
@@ -236,7 +243,7 @@ function output_slideshow($attr, &$attachments, $instance)
 	<br style='clear: both;' />
         </div>\n";
     
-    return "<div id=\"maptest\" style=\"display:none\">click</div>".$output;    
+    return ($coords_exist?"<div id=\"maplink\" style=\"display:none;\">Click here to view these on a map</div>":"").$output;
 }
 
 // Register our CSS and JS for inclusion in the finished page.
@@ -252,8 +259,8 @@ function setup_kandt_environment()
     wp_register_script('kandtjs', plugins_url('js/kandt.js', __FILE__), array('jquery'), false, true);
     
     // TODO: But we might be able to hold off on enqueuing until we're in output function. Try that.
-    wp_enqueue_style('kandtcss');
     wp_enqueue_style('tosruscss');
+    wp_enqueue_style('kandtcss');
     wp_enqueue_script('cycle2');
     wp_enqueue_script('tosrusjs');
     wp_enqueue_script('kandtjs');

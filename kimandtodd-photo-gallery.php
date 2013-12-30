@@ -232,7 +232,7 @@ function output_slideshow($attr, &$attachments, $instance)
 	}
 	$output .= "\n<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption' data-title='$title' $latLng>";
 	$output .= "
-            <{$icontag} class='gallery-content' src='" .
+            <{$icontag} class='gallery-content'  alt='$title' src='" .
                 ($link ? $link[0] : "/wordpress/noimg")
             ."'></{$icontag}>";
 	

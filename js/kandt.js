@@ -1,3 +1,4 @@
+var albumView=false;
 (function($) {
     $(document).ready(function() {
         $('.cycle_imgs_box').each(function(){$(this).prependTo($(this).parent());});
@@ -11,7 +12,7 @@
             {
                 var tos = $('#'+$(this).first().attr('id') +  ' a').TosRUs({"caption":["data-caption"],'anchors':{'zoomIcon':false}});
                 if (location.hash=="#startshow") tos.trigger("open");
-                //setLoggers(tos);
+                bindEvents(tos);
             });
             
         
@@ -70,6 +71,27 @@ function setLoggers(tos)
   tos.bind("closing.tos", closeLog);
   tos.bind("sliding.tos", slideLog);
   tos.bind("loading.tos", loadLog);
+}
+
+function bindEvents(tos)
+{
+    tos.bind("opening.tos", function( event ) {
+	if (!albumView)
+        {
+            try
+            {
+                var title = document.title.split('|')[0].trim();
+                ga('send', {
+                    'hitType': 'event',
+                    'eventCategory': 'album',
+                    'eventAction': 'albumView',
+                    'eventLabel': title
+                });
+            }
+            catch(e){console.log("Couldn't send albumview event.");}
+            albumView=true;
+        }
+    });
 }
 
 function isTouchDevice() {

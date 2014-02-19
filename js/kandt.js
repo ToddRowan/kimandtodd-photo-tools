@@ -11,8 +11,12 @@ var albumView=false;
             function()
             {
                 var tos = $('#'+$(this).first().attr('id') +  ' a').TosRUs({"caption":["data-caption"],'anchors':{'zoomIcon':false}});
-                if (location.hash=="#startshow") tos.trigger("open");
                 bindEvents(tos);
+                if (location.hash=="#startshow")
+                {
+                    tos.trigger("open");
+                    tos.trigger("slideTo", [0,0,true]);
+                }                
             });
             
         
@@ -76,22 +80,32 @@ function setLoggers(tos)
 function bindEvents(tos)
 {
     tos.bind("opening.tos", function( event ) {
-	if (!albumView)
+	recordOpenEvent();
+    });
+}
+
+function recordOpenEvent()
+{
+    if (!albumView)
         {
+            var openType='albumViewLocal';
+            if (location.hash=="#startshow")
+            {
+                openType='albumViewFromHomepage';
+            }
             try
             {
                 var title = document.title.split('|')[0].trim();
                 ga('send', {
                     'hitType': 'event',
                     'eventCategory': 'album',
-                    'eventAction': 'albumView',
+                    'eventAction': openType,
                     'eventLabel': title
                 });
             }
             catch(e){console.log("Couldn't send albumview event.");}
             albumView=true;
         }
-    });
 }
 
 function isTouchDevice() {

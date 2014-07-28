@@ -4,7 +4,7 @@ Plugin Name: Kim and Todd's photo tools
 Plugin URI: http://www.kimandtodd.com
 Description: Incorporates the Awkward Group's slider implementation and cycle lite
  * for the home page. 
-Version: 0.1
+Version: 0.2
 Author: Todd Rowan
 Author URI: http://www.kimandtodd.com
 License: GPL2
@@ -225,18 +225,18 @@ function output_slideshow($attr, &$attachments, $instance)
         
         if ($caption) {
             $caption = htmlspecialchars($caption, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
-	}
+        }
         
         if ($title) {
             $title = htmlspecialchars($title, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
-	}
-	$output .= "\n<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' data-caption='$caption' data-title='$title' $latLng>";
-	$output .= "
-            <{$icontag} class='gallery-content'  alt='$title' src='" .
-                ($link ? $link[0] : "/wordpress/noimg")
-            ."'></{$icontag}>";
-	
-	$output .= "</{$itemtag}>"; 
+        }
+        $output .= "\n<{$itemtag} class='gallery-thumbnail' href='" . ($linkFull ? $linkFull[0] : "/wordpress/noimg") ."' title='$caption' data-caption='$caption' data-title='$title' $latLng>";
+        $output .= "
+                  <{$icontag} class='gallery-content'  alt='$title' title='$title' src='" .
+                      ($link ? $link[0] : "/wordpress/noimg")
+                  ."'></{$icontag}>";
+
+        $output .= "</{$itemtag}>"; 
     }
 
     $output .= "

@@ -243,14 +243,14 @@ function output_slideshow($attr, &$attachments, $instance)
 	<br style='clear: both;' />
         </div>\n";
     
-    return ($coords_exist?"<div id=\"maplink\" style=\"display:none;\">Click here to view these on a map</div>":"").$output;
+    return ($coords_exist?"<div id=\"maplink\" style=\"display:none;\"><img class=\"globe\" src=\"" . plugin_dir_url(__FILE__) . "images/globe.png\">&nbsp;Click here to view these on a map</div>":"").$output;
 }
 
 // Register our CSS and JS for inclusion in the finished page.
 function setup_kandt_environment()
 {
     // We should definitely register here
-    wp_register_style('kandtcss', plugins_url('css/kandt.css', __FILE__));
+    wp_register_style('kandtcss', plugins_url('css/kandt.css', __FILE__), array(), "82214");
     wp_register_style('tosruscss', plugins_url('css/jquery.tosrus.css', __FILE__));
     wp_register_script('cycle2', plugins_url('js/jquery.cycle2.min.js', __FILE__), array('jquery'));
     wp_register_script('hammer', plugins_url('js/jquery.hammer.min.js', __FILE__), array('jquery'));

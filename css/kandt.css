@@ -64,6 +64,12 @@
     cursor: pointer;
 }
 
+.globe {
+  height: 15px;
+  position: relative;
+  top: 3px;
+}
+
 .gm-style img { 
     max-width: none; 
 }

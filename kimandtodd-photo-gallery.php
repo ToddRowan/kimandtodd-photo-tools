@@ -61,7 +61,7 @@ function get_post_gallery_thumb($post_id)
     if ($shortcode!="")
     {
         $rgx = '/\d+/';
-        $res = preg_match($rgx,$shortcode,&$matches);
+        $res = preg_match($rgx,$shortcode,$matches);
         if($res)
         {
             $img_arr = wp_get_attachment_image_src($matches[0], 'medium');

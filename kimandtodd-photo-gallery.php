@@ -17,7 +17,7 @@ define("GALLERY_META_KEY", "gallery_meta");
 add_filter("post_gallery", "gallery_shortcode_kandt", 10, 2);
 // We add JS and CSS to the page. This will need to be enhanced to be smarter about 
 // what the client loads into the page. 
-add_action('after_setup_theme', 'setup_kandt_environment' );
+add_action('wp_enqueue_scripts', 'setup_kandt_environment' );
 // This is our processing step where we analyze post content on publish.
 add_action('transition_post_status', 'save_shortcode_on_publish', 10,3);
 

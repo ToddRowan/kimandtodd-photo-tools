@@ -98,9 +98,6 @@ function gallery_shortcode_kandt($wtf, $attr) {
         return "\n";
     }
 
-    // First, grab the post in which we're rendering.    
-    $post = get_post();
-
     // Keep track of multiple instances on a single rendering. 
     static $instance = 0;
     $instance++;
@@ -116,10 +113,9 @@ function gallery_shortcode_kandt($wtf, $attr) {
     // Maybe change logic here to just read the ones from above that I need directly from the array,
     // then do the extract in the appropriate rendering function. I'll prolly wanna do some logic
     // that hides the images on a mobile setting, so that we don't download them all on page load. 
-    $id = intval($id);
     $attachments = array();
     if ( !empty($attr['include']) ) {
-    	$_attachments = get_posts( array('include' => $attr['include'], 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'order' => $attr['order'], 'orderby' => $attr['orderby']) );
+    	$_attachments = get_posts( array('include' => $attr['include'], 'post_status' => 'inherit', 'post_type' => 'attachment', 'post_mime_type' => 'image', 'orderby' => $attr['orderby']) );
         foreach ( $_attachments as $key => $val ) {
 		$attachments[$val->ID] = $_attachments[$key];
 	}
@@ -212,7 +208,12 @@ function output_slideshow($attr, &$attachments, $instance)
         $linkFull = wp_get_attachment_image_src($id, $size);
         $caption = trim($attachment->post_content);
         $title = trim($attachment->post_title);
-        $coords = get_coords_for_attachment($id);
+        $coords = false;
+        // only exists if my gps plug-in is also in the house.
+        if (function_exists('get_coords_for_attachment')) {
+          $coords = get_coords_for_attachment($id);
+        }
+        
         if ($coords)
         {
             $latLng = "data-lat=\"". $coords['latitude'] ."\" data-lng=\"". $coords['longitude'] ."\"";

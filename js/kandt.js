@@ -10,7 +10,7 @@ var albumView=false;
         $('.gallery').each(
             function()
             {
-                var tos = $('#'+$(this).first().attr('id') +  ' a').TosRUs({"caption":["data-caption"],'anchors':{'zoomIcon':false}});
+                var tos = $('#'+$(this).first().attr('id') +  ' a').tosrus({caption:{add:true, attributes:["data-caption"]},'anchors':{'zoomIcon':false}});
                 bindEvents(tos);
                 if (location.hash=="#startshow")
                 {
@@ -96,7 +96,7 @@ function recordOpenEvent()
             try
             {
                 var title = document.title.split('|')[0].trim();
-                ga('send', {
+                __gaTracker('send', {
                     'hitType': 'event',
                     'eventCategory': 'album',
                     'eventAction': openType,

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Kim and Todd's photo tools
 Plugin URI: http://www.kimandtodd.com
-Description: Incorporates the Awkward Group's slider implementation and cycle lite
+Description: Incorporates the Awkward Group's slider implementation and cycle
  * for the home page. 
 Version: 0.2
 Author: Todd Rowan
@@ -252,11 +252,11 @@ function setup_kandt_environment()
 {
     // We should definitely register here
     wp_register_style('kandtcss', plugins_url('css/kandt.css', __FILE__), array(), "82214");
-    wp_register_style('tosruscss', plugins_url('css/jquery.tosrus.css', __FILE__));
+    wp_register_style('tosruscss', plugins_url('css/jquery.tosrus.all.css', __FILE__));
     wp_register_script('cycle2', plugins_url('js/jquery.cycle2.min.js', __FILE__), array('jquery'));
-    wp_register_script('hammer', plugins_url('js/jquery.hammer.min.js', __FILE__), array('jquery'));
+    wp_register_script('hammer', plugins_url('js/hammer.min.js', __FILE__), array('jquery'));
     wp_register_script('flameportviewscale', plugins_url('js/FlameViewportScale.js', __FILE__), array('jquery'));
-    wp_register_script('tosrusjs', plugins_url('js/jquery.tosrus.min.js', __FILE__), array('hammer','flameportviewscale'));    
+    wp_register_script('tosrusjs', plugins_url('js/jquery.tosrus.min.all.js', __FILE__), array('hammer','flameportviewscale'));    
     wp_register_script('kandtjs', plugins_url('js/kandt.js', __FILE__), array('jquery'), false, true);
     
     // TODO: But we might be able to hold off on enqueuing until we're in output function. Try that.
